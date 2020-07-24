@@ -8,7 +8,9 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                echo 'building app'
+                echo "GIT_COMMIT: ${env.GIT_COMMIT}"
+                echo "GIT_BRANCH: ${env.GIT_BRANCH}"
+                echo "GIT_URL: ${env.GIT_URL}"
             }
         }
         stage('test') {
