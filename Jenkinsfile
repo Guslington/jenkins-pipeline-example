@@ -18,9 +18,41 @@ pipeline {
                 echo 'testing app'
             }
         }
-        stage('deploy') {
+        stage('deploy dev') {
+            when {
+                anyOf {
+                    branch 'develop'; branch 'feature/*'
+                }
+            }
             steps {
-                echo 'deloying app'
+                echo 'deloying app to dev'
+            }
+        }
+        stage('deploy test') {
+            when {
+                branch 'develop'
+            }
+            steps {
+                echo 'deloying app to test'
+            }
+        }
+        stage('deploy uat') {
+            when {
+                branch 'master'
+            }
+            steps {
+                echo 'deloying app to uat'
+            }
+        }
+        stage('deploy prod') {
+            when {
+                branch 'master'
+            }
+            input {
+                message 'promote app to production?'
+            }
+            steps {
+                echo 'deloying app to pr'
             }
         }
     }
